@@ -21,6 +21,9 @@ const serverConfig = {
   typeDefs,
   resolvers,
   context: createContext,
+  playground: {
+    endpoint: '/dev/graphql',
+  },
 };
 
 const server = new ApolloServer(serverConfig);
