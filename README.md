@@ -1,5 +1,8 @@
 # (Non-official) Riot Games API in GraphQL
 
+## Status:
+Currently deployed at: https://kfnx8kz2q4.execute-api.us-east-1.amazonaws.com/dev/graphql
+
 Purpose:
 This API returns the match history for any given summoner name. For each match, tt provides
 the following information:
