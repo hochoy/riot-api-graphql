@@ -23,4 +23,17 @@ const serverConfig = {
 
 const server = new ApolloServer(serverConfig);
 
+// Option 1: Use `apollo-server` to deploy on an EC2 instance
 server.listen({ port: 4000 });
+
+// Option 2: Use `apollo-server-lambda` to deploy on Lambda
+
+// // TODO: what is credentials: true for?
+// const handlerOptions = {
+//   cors: {
+//     origin: '*',
+//     credentials: true,
+//   },
+// };
+
+// module.exports.graphqlHandler = server.createHandler(handlerOptions);
