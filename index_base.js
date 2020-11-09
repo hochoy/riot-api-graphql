@@ -14,6 +14,8 @@ const PORT = 4000;
 
 const SUMMONER_BY_NAME_BASE_URL = 'https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/';
 
+const MATCH_LIST_BY_ACCOUNT_ID_BASE_URL = 'https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/';
+
 const AXIOS_CONFIG = {
   headers: {
     'Content-Type': 'application/json',
@@ -51,9 +53,24 @@ const typeDefs = gql`
     summonerLevel: Int
   }
 
+  type Match {
+    """
+    Ex: NA1
+    """
+    platformId: String,
+    gameId: Float,
+    champion: Int,
+    queue: Int,
+    season: Int,
+    timestamp: Float
+    role: String
+    lane: String
+  }
+
   type Query {
     welcome: String,
     summonerByName(name: String!): Summoner
+    matchListByAccountId(accountId: String!): [Match!]
   }
 
 `;
@@ -70,8 +87,21 @@ const resolvers = {
 
       const response = await axios.get(finalUrl, AXIOS_CONFIG);
 
-      return response.data;
+      const summoner = response.data;
 
+      return summoner;
+
+    },
+    matchListByAccountId: async (obj, args, ctx, info) => {
+      const { accountId } = args;
+
+      const finalUrl = `${MATCH_LIST_BY_ACCOUNT_ID_BASE_URL}${accountId}`;
+
+      const response = await axios.get(finalUrl, AXIOS_CONFIG);
+
+      const matches = response.data && response.data.matches;
+
+      return matches;
     },
   },
 };
