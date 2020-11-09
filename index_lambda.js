@@ -24,6 +24,12 @@ const serverConfig = {
   playground: {
     endpoint: '/dev/graphql',
   },
+  formatError: (err) => {
+
+    console.error(err);
+
+    return { message: err.message };
+  },
 };
 
 const server = new ApolloServer(serverConfig);
