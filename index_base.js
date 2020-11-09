@@ -129,8 +129,8 @@ const typeDefs = gql`
     stats: ParticipantStats
     teamId: Int
     # timeline: ParticipantTimeline #IMPORTANT
-    spell1ld: Int
-    spell2ld: Int
+    spell1Id: Int
+    spell2Id: Int
     highestAchievedSeasonTier: String
     # masteries: [Mastery]
   }
@@ -242,7 +242,9 @@ const resolvers = {
 
       const response = await axios.get(finalUrl, AXIOS_CONFIG);
 
-      return response;
+      console.log(response.data);
+
+      return response.data;
     },
     matchHistory: (obj, args, ctx, info) => {
       // TODO: Combine into single endpoint
