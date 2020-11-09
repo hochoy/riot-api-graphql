@@ -71,8 +71,6 @@ const resolvers = {
 
       const response = await axios.get(finalUrl, AXIOS_CONFIG);
 
-      console.log(response.data);
-
       return response.data;
     },
     matchHistory: (obj, args, ctx, info) => {
