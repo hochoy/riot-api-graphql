@@ -1,7 +1,7 @@
 # serverless.yml
 # https://www.apollographql.com/docs/apollo-server/deployment/lambda/#configuring-the-serverless-framework
 
-service: apollo-lambda
+service: apollo-lambda-riot-api
 provider:
   name: aws
   runtime: nodejs12.x
