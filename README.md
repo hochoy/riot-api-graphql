@@ -44,3 +44,8 @@ eslint
 # deployment
 serverless # maybe, or AWS CLI or just manually deploy
 ```
+
+## Testing
+
+1. Postman
+2. Sample Node.js script
