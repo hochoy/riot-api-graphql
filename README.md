@@ -15,3 +15,32 @@ the following information:
 9. champion level in the match
 10. total creep score
 11. creep score per minute (total creeps divided by game duration)
+
+
+## Data links for reference:
+https://developer.riotgames.com/apis#summoner-v4
+https://developer.riotgames.com/apis#match-v4
+https://developer.riotgames.com/docs/lol#data-dragon_champions
+
+## General architecture
+
+```
+Request -> API Gateway -> Lambda + GraphQL + Node.js -> Riot REST API
+```
+
+## Likely libraries
+```
+# functional
+axios
+graphql
+apollo-server-lambda
+lodash
+moment
+dotenv
+
+# linting
+eslint
+
+# deployment
+serverless # maybe, or AWS CLI or just manually deploy
+```
