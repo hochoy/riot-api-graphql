@@ -5,6 +5,7 @@
 const { ApolloServer, gql } = require('apollo-server');
 const axios = require('axios');
 require('dotenv').config();
+const _ = require('lodash');
 
 // load environment variables
 const { RIOT_API_TOKEN } = process.env;
@@ -70,7 +71,7 @@ const typeDefs = gql`
   type Query {
     welcome: String,
     summonerByName(name: String!): Summoner
-    matchListByAccountId(accountId: String!): [Match!]
+    matchListByAccountId(accountId: String!, nLatestMatchesToShow: Int): [Match!]
   }
 
 `;
@@ -93,15 +94,30 @@ const resolvers = {
 
     },
     matchListByAccountId: async (obj, args, ctx, info) => {
-      const { accountId } = args;
+      const { accountId, nLatestMatchesToShow } = args;
 
       const finalUrl = `${MATCH_LIST_BY_ACCOUNT_ID_BASE_URL}${accountId}`;
 
       const response = await axios.get(finalUrl, AXIOS_CONFIG);
 
-      const matches = response.data && response.data.matches;
+      if (response.data) {
 
-      return matches;
+        const {
+          matches, startIndex, endIndex, totalGames, 
+        } = response.data;
+
+        if (nLatestMatchesToShow) {
+
+          const returnMatches = matches.slice(0, nLatestMatchesToShow);
+
+          return returnMatches;
+        }
+
+        return matches;
+      }
+
+      throw new Error(`No matches found for account ID: ${accountId}`);
+      
     },
   },
 };
@@ -110,11 +126,6 @@ const resolvers = {
 const createContext = (requestContext) => {
   const { body } = requestContext.req;
   const { headers } = requestContext.req;
-
-  console.log('\n ======== Request context start ========');
-  console.log(body);
-  console.log(headers);
-  console.log(' ======== Request context end ======== \n');
 
   return {};
 };
