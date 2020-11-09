@@ -23,6 +23,12 @@ const serverConfig = {
   typeDefs,
   resolvers,
   context: createContext,
+  formatError: (err) => {
+
+    console.error(err);
+
+    return { message: err.message };
+  },
 };
 
 const server = new ApolloServer(serverConfig);
